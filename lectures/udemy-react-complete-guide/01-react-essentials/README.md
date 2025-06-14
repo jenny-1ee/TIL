@@ -1,13 +1,11 @@
-# 01-starting-project
+# 01-react-essentials
 
-## 주요 개념 정리
-
-### 🧩 jsx란?
+## 🧩 jsx란?
 
 - jsx는 JavaScript에 HTML을 섞어쓸 수 있는 확장 문법입니다.
 - 브라우저는 .jsx 파일을 해석할 수 없기 때문에, 빌드 과정에서 일반 자바스크립트로 변환 됩니다.
 
-### ⚙️ 리액트에서 컴포넌트로 인식 되기 위한 두 가지 규칙
+## ⚙️ 리액트에서 컴포넌트로 인식 되기 위한 두 가지 규칙
 
 리액트는 특정 조건을 만족하는 함수를 컴포넌트로 인식합니다:
 
@@ -44,7 +42,7 @@ function App() {
 export default App;
 ```
 
-### 🔁 리액트의 컴포넌트 처리 과정
+## 🔁 리액트의 컴포넌트 처리 과정
 
 리액트 앱은 브라우저에서 다음과 같은 흐름으로 동작합니다:
 
@@ -105,3 +103,89 @@ export default App;
 
 - `App`컴포넌트는 최상위 컴포넌트이며, 내부에 `Header` 컴포넌트를 포함하고 있습니다.
 - 이 구조는 리액트 앱의 가장 기본적인 트리 형태를 보여주고 있습니다.
+
+## 🧠 동적인 값을 JSX에서 사용하는 방법
+
+JSX 안에 중괄호`{}`를 사용해 JavaScript 표현식을 삽입합니다.
+
+동적인 값은 태그 속성이나 태그 내부 콘텐츠로 사용할 수 있습니다.
+
+#### 🧱 App.jsx
+
+```js
+import reactImg from "./assets/react-core-concepts.png";
+
+const reactDescriptions = ["Fundamental", "Crucial", "Chore"];
+
+function getRandomInt(max) {
+  return Math.floor(Math.random() * (max + 1));
+}
+
+function Header() {
+  const description = reactDescriptions[getRandomInt(2)];
+
+  return (
+    <header>
+      <img src={reactImg} alt="Stylized atom" />
+      <h1>React Essentials</h1>
+      <p>
+        {description} React concepts you will need for almost any app you are
+        going to build!
+      </p>
+    </header>
+  );
+}
+```
+
+### 컴포넌트 재사용 (중요)
+
+입력 데이터가 다른 특정 리액트 컴포넌트를 구축하고 재사용합니다.
+
+props는 키 값의 쌍을 보유하는 객체
+
+```js
+function CoreConcepts(props) {
+  return (
+    <li>
+      <img src={props.image} alt={props.title} />
+      <h3>{props.title}</h3>
+      <p>{props.description}</p>
+    </li>
+  );
+}
+
+function App() {
+  return (
+    <div>
+      <main>
+        <Header />
+        <section id="core-concepts">
+          <h2>Core Concepts</h2>
+          <ul>
+            <CoreConcepts
+              title={CORE_CONCEPTS[0].title}
+              description={CORE_CONCEPTS[0].description}
+              image={CORE_CONCEPTS[0].image}
+            />
+            <CoreConcepts
+              title={CORE_CONCEPTS[1].title}
+              description={CORE_CONCEPTS[1].description}
+              image={CORE_CONCEPTS[1].image}
+            />
+            <CoreConcepts
+              title={CORE_CONCEPTS[2].title}
+              description={CORE_CONCEPTS[2].description}
+              image={CORE_CONCEPTS[2].image}
+            />
+            <CoreConcepts
+              title={CORE_CONCEPTS[3].title}
+              description={CORE_CONCEPTS[3].description}
+              image={CORE_CONCEPTS[3].image}
+            />
+          </ul>
+        </section>
+      </main>
+    </div>
+  );
+}
+```
