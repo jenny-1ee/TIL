@@ -1,4 +1,4 @@
-# 📘 Udemy: React 완벽 가이드
+# 📘 Udemy: React 완벽 가이드 2025 with React Router & Redux
 
 - 학습 시작일: 2025년 6월 14일
 
@@ -6,6 +6,4 @@
 
 ## 📚 강의 내용
 
-- [01-starting-project](01-starting-project)
-
-  리액트 앱 초기 구조와 렌더링 과정
+- [01-starting-project](01-starting-project) - 리액트 앱 초기 구조와 렌더링 과정
