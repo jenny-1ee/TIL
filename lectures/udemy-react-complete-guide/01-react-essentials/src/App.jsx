@@ -25,7 +25,7 @@ function Header() {
 function CoreConcepts(props) {
   return (
     <li>
-      <img src={props.imgae} alt={props.title} />
+      <img src={props.image} alt={props.title} />
       <h3>{props.title}</h3>
       <p>{props.description}</p>
     </li>
@@ -43,22 +43,22 @@ function App() {
             <CoreConcepts
               title={CORE_CONCEPTS[0].title}
               description={CORE_CONCEPTS[0].description}
-              imgage={CORE_CONCEPTS[0].image}
+              image={CORE_CONCEPTS[0].image}
             />
             <CoreConcepts
               title={CORE_CONCEPTS[1].title}
               description={CORE_CONCEPTS[1].description}
-              imgage={CORE_CONCEPTS[1].image}
+              image={CORE_CONCEPTS[1].image}
             />
             <CoreConcepts
               title={CORE_CONCEPTS[2].title}
               description={CORE_CONCEPTS[2].description}
-              imgage={CORE_CONCEPTS[2].image}
+              image={CORE_CONCEPTS[2].image}
             />
             <CoreConcepts
               title={CORE_CONCEPTS[3].title}
               description={CORE_CONCEPTS[3].description}
-              imgage={CORE_CONCEPTS[3].image}
+              image={CORE_CONCEPTS[3].image}
             />
           </ul>
         </section>
