@@ -137,11 +137,17 @@ function Header() {
 }
 ```
 
-### 컴포넌트 재사용 (중요)
+## 🧠 컴포넌트 재사용 (중요)
 
-입력 데이터가 다른 특정 리액트 컴포넌트를 구축하고 재사용합니다.
+리액트는 반복되는 UI 구조를 컴포넌트화 하고
 
-props는 키 값의 쌍을 보유하는 객체
+props를 통해 데이터를 전달함으로써 유지보수와 재사용성을 높입니다.
+
+### 🧩 props란?
+
+- props는 **키-값의 쌍을 가진 객체**
+
+- 상위 컴포넌트에서 하위 컴포넌트로 데이터를 전달하는 수단
 
 ```js
 function CoreConcepts(props) {
@@ -153,6 +159,30 @@ function CoreConcepts(props) {
     </li>
   );
 }
+```
+
+### 🔁 구조 분해 할당을 사용한 리팩토링
+
+```js
+function CoreConcepts({ image, title, description }) {
+  return (
+    <li>
+      <img src={image} alt={title} />
+      <h3>{title}</h3>
+      <p>{description}</p>
+    </li>
+  );
+}
+```
+
+### 🗂️ 컴포넌트 및 파일 구조 분리
+
+프로젝트 규모가 커질수록 파일을 역할 별로 나누는 것이 중요합니다.
+
+```js
+import { CORE_CONCEPTS } from "./data.js";
+import Header from "./components/Header.jsx";
+import CoreConcepts from "./components/CoreConcept.jsx";
 
 function App() {
   return (
@@ -162,30 +192,16 @@ function App() {
         <section id="core-concepts">
           <h2>Core Concepts</h2>
           <ul>
-            <CoreConcepts
-              title={CORE_CONCEPTS[0].title}
-              description={CORE_CONCEPTS[0].description}
-              image={CORE_CONCEPTS[0].image}
-            />
-            <CoreConcepts
-              title={CORE_CONCEPTS[1].title}
-              description={CORE_CONCEPTS[1].description}
-              image={CORE_CONCEPTS[1].image}
-            />
-            <CoreConcepts
-              title={CORE_CONCEPTS[2].title}
-              description={CORE_CONCEPTS[2].description}
-              image={CORE_CONCEPTS[2].image}
-            />
-            <CoreConcepts
-              title={CORE_CONCEPTS[3].title}
-              description={CORE_CONCEPTS[3].description}
-              image={CORE_CONCEPTS[3].image}
-            />
+            <CoreConcepts {...CORE_CONCEPTS[0]} />
+            <CoreConcepts {...CORE_CONCEPTS[1]} />
+            <CoreConcepts {...CORE_CONCEPTS[2]} />
+            <CoreConcepts {...CORE_CONCEPTS[3]} />
           </ul>
         </section>
       </main>
     </div>
   );
 }
+
+export default App;
 ```
