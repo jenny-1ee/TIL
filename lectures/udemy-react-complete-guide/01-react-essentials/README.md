@@ -205,3 +205,164 @@ function App() {
 
 export default App;
 ```
+
+## 🧠 props로 함수 전달하기
+
+```js
+<button onClick={handleClick}>{props.children}</button>
+```
+
+❌ `onClick={handleClick()}`: 함수가 컴포넌트 렌더링 시점에 바로 실행됩니다.
+
+✅ `onClick={handleClick}`: 함수 **참조(포인터)** 를 전달해야 클릭 시점에 함수가 실행됩니다.
+
+익명함수를 사용할 수도 있습니다:
+
+- 매개변수를 넘길 때
+- 여러 코드를 묶을 때
+
+```js
+<TabButton onSelect={() => handleSelect}>Components</TabButton>
+```
+
+## 🧩 props.children이란?
+
+props.children은 컴포넌트 태그 사이의 컨텐츠를 자동으로 전달합니다.
+
+```js
+<TabButton>Components</TabButton>
+```
+
+```js
+<button>{props.children}</button>
+```
+
+## 🧠 상태 관리: useState
+
+❌ 일반 변수로는 UI를 업데이트할 수 없습니다.
+
+- 함수가 처음 실행되고 난 후에 UI가 렌더링 되는데, 일반적인 변수는 상태 변화 감지 대상이 아닙니다.
+
+```js
+function App() {
+  let tabContent = "Please click a button";
+
+  function handleSelect(selectedButton) {
+    // selectedButton => 'components', 'jsx', 'props', 'state'
+    tabContent = selectedButton;
+    console.log(selectedButton);
+  }
+```
+
+✅ 그래서 리액트는 상태를 사용합니다.
+
+```js
+const [selectedTopic, setSelectedTopic] = useState("Please click a button");
+
+function handleSelect(selectedButton) {
+  setSelectedTopic(selectedButton);
+  // console.log(selectedTopic);
+}
+```
+
+- 상태를 선언할 때, 컴포넌트가 렌더링 될 초기값을 지정합니다.
+- `setSelectedTopic` 함수는 다음 렌더링에서 최신 값으로 반영됩니다.
+
+## 🧠 React Hook 규칙
+
+- 컴포넌트 함수의 최상단에서만 호출합니다.
+- 조건문, 반복문 안에는 사용할 수 없습니다.
+- 컴포넌트 함수 또는 커스텀 Hook안에서 사용 가능합니다.
+
+## 📌 조건적으로 컨텐츠를 렌더링하는 방법 4가지
+
+#### 1️⃣ 삼항 연산자-1
+
+```js
+{
+  !selectedTopic ? <p>Please select a topic.</p> : null;
+}
+{
+  selectedTopic ? <div id="tab-content">...</div> : null;
+}
+```
+
+#### 2️⃣ 삼항 연산자-2
+
+```js
+{
+  !selectedTopic ? (
+    <p>Please select a topic.</p>
+  ) : (
+    <div id="tab-content">...</div>
+  );
+}
+```
+
+##### 3️⃣ 논리 연산자(&&)
+
+```js
+{
+  !selectedTopic && <p>Please select a topic.</p>;
+}
+{
+  selectedTopic && <div id="tab-content">...</div>;
+}
+```
+
+#### 4️⃣ 조건 분기
+
+```js
+let tabContent = <p>Please select a topic.</p>;
+
+if (selectedTopic) {
+  tabContent = <div id="tab-content">...</div>;
+}
+
+return (
+  //...
+
+  { tabContent }
+);
+```
+
+## 🎨 동적 스타일링
+
+조건에 따라 클래스를 부여하여 동적으로 스타일링할 수도 있습니다.
+
+#### 🧱 TabButton.jsx
+
+```js
+export default function TabButton({ children, onSelect, isSelected }) {
+  return (
+    <li>
+      <button className={isSelected ? "active" : undefined} onClick={onSelect}>
+        {children}
+      </button>
+    </li>
+  );
+}
+```
+
+#### 📦 App.jsx
+
+```js
+<TabButton
+  isSelected={selectedTopic === "components"}
+  onSelect={() => handleSelect("components")}
+>
+  Components
+</TabButton>
+```
+
+### 🔁 리스트를 동적으로 렌더링 하기
+
+`map()` 함수를 사용해 데이터를 동적으로 렌더링할 수 있습니다.
+
+```js
+<ul>
+  {CORE_CONCEPTS.map((conceptItem) => (
+    <CoreConcepts key={conceptItem.title} {...conceptItem} />
+  ))}
+</ul>
+```
