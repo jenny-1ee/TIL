@@ -6,4 +6,4 @@
 
 ## 📚 강의 내용
 
-- [01-starting-project](01-starting-project) - 리액트 앱 초기 구조와 렌더링 과정
+- [01-react-essentials](01-react-essentials) - 리액트 앱 초기 구조와 렌더링 과정
